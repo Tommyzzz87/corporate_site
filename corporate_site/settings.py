@@ -38,7 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'core',
 ]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = '/var/www/corporate_site/media'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
