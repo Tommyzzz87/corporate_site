@@ -6,4 +6,5 @@ urlpatterns = [
     path('verify/', views.VerifyView.as_view(), name='verify'),
     path('profile/', views.ProfileView.as_view(), name='profile'),
     path('shop/', views.ShopView.as_view(), name='shop'),
+    path('users/', views.UserListView.as_view(), name='user-list'),  # Новый маршрут
 ]

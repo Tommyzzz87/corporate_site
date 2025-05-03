@@ -2,17 +2,28 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 class User(AbstractUser):
-    handle = models.CharField(max_length=255, unique=True)
-    badge = models.CharField(max_length=255, blank=True)
-    fluency = models.CharField(max_length=255, blank=True)
-    location = models.CharField(max_length=255, blank=True)
-    image = models.URLField(blank=True)
-    enlisted = models.DateTimeField(null=True, blank=True)
-    display = models.CharField(max_length=255, blank=True)
-    website = models.URLField(blank=True)
-    discord_id = models.CharField(max_length=255, blank=True)
-    telegram_id = models.CharField(max_length=255, blank=True)
-    is_banned = models.BooleanField(default=False)
+    username = None  # Отключаем поле username, так как используем handle
+    handle = models.CharField(max_length=150, unique=True)
+    badge = models.CharField(max_length=255, blank=True, null=True)
+    fluency = models.CharField(max_length=255, blank=True, null=True)
+    location = models.CharField(max_length=255, blank=True, null=True)
+    image = models.ImageField(upload_to='images/', blank=True, null=True)
+    enlisted = models.DateTimeField(blank=True, null=True)
+    display = models.CharField(max_length=255, blank=True, null=True)
+    website = models.URLField(blank=True, null=True)
+    is_admin_only = models.BooleanField(default=False)  # Новое поле для суперадминов
+
+    USERNAME_FIELD = 'handle'
+    REQUIRED_FIELDS = ['email']
+
+    def __str__(self):
+        return self.handle
+
+    def can_authenticate(self):
+        return self.is_active
+
+        # Проверяем, что пользователь активен
+        return self.is_active
 
     # Указываем уникальные related_name для устранения конфликта
     groups = models.ManyToManyField(

@@ -39,3 +39,9 @@ class ShopView(APIView):
         products = Product.objects.all()
         serializer = ProductSerializer(products, many=True)
         return Response(serializer.data)
+
+class UserListView(ApiView):
+    def get(self, request):
+        users = User.objects.filter(is_admin_only=False)  # Исключаем суперадминов
+        serializer = UserSerializer(users, many=True)
+        return Response(serializer.data)
