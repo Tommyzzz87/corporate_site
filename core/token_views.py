@@ -10,7 +10,7 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         user_model = get_user_model()
 
         # Извлекаем данные из запроса
-        handle = attrs.get('username')  # Используем 'username' из запроса как 'handle'
+        handle = attrs.get('handle')  # Используем 'handle' напрямую
         password = attrs.get('password')
 
         # Проверяем, существует ли пользователь с таким handle
